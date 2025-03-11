@@ -1,8 +1,7 @@
 import assert from "assert";
 import type { Problem } from "../types/problems";
- 
 
-export const jumpGameHandler = (fn: any) => {
+export const jumpGameHandler = (fn: (nums: number[]) => boolean) => {
 	try {
 		const tests = [
 			[2, 3, 1, 1, 4],
@@ -11,14 +10,15 @@ export const jumpGameHandler = (fn: any) => {
 			[2, 5, 0, 0],
 		];
 		const answers = [true, false, true, true];
+
 		for (let i = 0; i < tests.length; i++) {
 			const result = fn(tests[i]);
-			assert.equal(result, answers[i]);
+			assert.strictEqual(result, answers[i]);
 		}
 		return true;
-	} catch (error: any) {
+	} catch (error: unknown) {
 		console.log("Error from jumpGameHandler: ", error);
-		throw new Error(error);
+		throw new Error((error as Error).message);
 	}
 };
 

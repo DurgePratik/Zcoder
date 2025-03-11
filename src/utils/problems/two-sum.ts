@@ -1,12 +1,11 @@
-import assert from "assert";
 import type { Problem } from "../types/problems";
 
-const starterCodeTwoSum = `function twoSum(nums, target) {
+const starterCodeTwoSum = `function twoSum(nums: number[], target: number): number[] {
   // Implement your logic here
   return [];
 };`;
 
-const handlerTwoSum = (fn: any) => {
+const handlerTwoSum = (fn: (nums: number[], target: number) => number[]) => {
   try {
     const nums = [[2, 7, 11, 15], [3, 2, 4], [3, 3]];
     const targets = [9, 6, 6];
@@ -15,13 +14,13 @@ const handlerTwoSum = (fn: any) => {
     for (let i = 0; i < nums.length; i++) {
       const result = fn(nums[i], targets[i]);
       if (!Array.isArray(result) || result.length !== 2 || result[0] !== answers[i][0] || result[1] !== answers[i][1]) {
-        return false; // Return false when test case fails
+        return false;
       }
     }
     return true;
-  } catch (error: any) {
-    console.log("Two Sum handler function error", error);
-    return false; // Ensure the function does not crash the app
+  } catch (error) {
+    console.error("Two Sum handler function error", error);
+    return false;
   }
 };
 

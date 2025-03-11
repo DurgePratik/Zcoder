@@ -1,12 +1,13 @@
 export type Problem = {
-	handlerFunction?: (cb: Function) => unknown;
+	handlerFunction?: (cb: (...args: any[]) => any) => unknown;
 	id: string;
 	title: string;
-	difficulty: "Easy" | "Medium" | "Hard"; // Restrict difficulty levels
+	difficulty: "Easy" | "Medium" | "Hard";
 	category: string;
 	order: number;
 	videoId?: string;
 };
+
 
 export const problems: Record<string, Problem> = {
 	"two-sum": {
@@ -40,13 +41,17 @@ export const problems: Record<string, Problem> = {
     category: "Linked List",
     order: 2,
     videoId: "",
-    handlerFunction: (cb: Function) => {
-        function ListNode(val: number, next: ListNode | null = null) {
-            this.val = val;
-            this.next = next;
+    handlerFunction: (cb) => {
+        class ListNode {
+			next: null;
+			val: number;
+            constructor(val: number, next = null) {
+                this.val = val;
+                this.next = next;
+            }
         }
 
-        function areListsEqual(l1: ListNode | null, l2: ListNode | null): boolean {
+        function areListsEqual(l1: { val: any; next: any; } | null, l2) {
             while (l1 && l2) {
                 if (l1.val !== l2.val) return false;
                 l1 = l1.next;

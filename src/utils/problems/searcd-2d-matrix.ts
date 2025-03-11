@@ -1,10 +1,9 @@
 import assert from "assert";
-
 import example1 from "./images/search-a-2d-1.jpg";
 import example2 from "./images/search-a-2d-2.jpg";
 import type { Problem } from "../types/problems";
 
-export const search2DMatrixHandler = (fn: any) => {
+export const search2DMatrixHandler = (fn: (matrix: number[][], target: number) => boolean) => {
 	try {
 		const tests = [
 			{
@@ -30,11 +29,12 @@ export const search2DMatrixHandler = (fn: any) => {
 			assert.deepEqual(result, answers[i]);
 		}
 		return true;
-	} catch (error: any) {
+	} catch (error: unknown) {
 		console.log("Error from searchA2DMatrixHandler: ", error);
-		throw new Error(error);
+		throw new Error((error as Error).message);
 	}
 };
+
 const starterCodeSearch2DMatrixJS = `// Do not edit function name
 function searchMatrix(matrix, target) {
   // Write your code here

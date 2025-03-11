@@ -8,7 +8,7 @@ import { BsCheckCircle } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import YouTube from 'react-youtube';
 
-type ProblemsTableProps = {};
+type ProblemsTableProps = Record<string, never>;
 
 const ProblemsTable: React.FC<ProblemsTableProps> = () => {
     const [loadingProblems, setLoadingProblems] = useState(true);

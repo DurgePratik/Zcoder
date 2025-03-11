@@ -13,7 +13,7 @@ interface SignupProps {
 
 const Signup: React.FC<SignupProps> = ({ onLogin }) => {
     const [inputs, setInputs] = useState({ email: '', displayName: '', password: '' });
-    const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
+    const [createUserWithEmailAndPassword, , loading, error] = useCreateUserWithEmailAndPassword(auth);
     const router = useRouter();
 
     const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,13 +91,15 @@ const Signup: React.FC<SignupProps> = ({ onLogin }) => {
                     className="border-2 outline-none sm:text-sm rounded-lg border-gray-500 placeholder-gray-400 h-10 w-full"
                 />
 
-                <Link href='/'><button
-                    type="submit"
-                    className="border-2 outline-none sm:text-sm rounded-lg bg-[#131538] text-white h-10 w-full mt-6"
-                    disabled={loading}
-                >
-                    {loading ? "Registering..." : "Register"}
-                </button></Link>
+                <Link href='/'>
+                    <button
+                        type="submit"
+                        className="border-2 outline-none sm:text-sm rounded-lg bg-[#131538] text-white h-10 w-full mt-6"
+                        disabled={loading}
+                    >
+                        {loading ? "Registering..." : "Register"}
+                    </button>
+                </Link>
             </form>
 
             <p className="mt-4 text-center">

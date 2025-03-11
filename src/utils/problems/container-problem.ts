@@ -5,13 +5,12 @@ const starterCodeContainerWithMostWater = `function maxArea(height) {
   // Write your code here
 };`;
 
-const handlerContainerWithMostWater = (fn: any) => {
+const handlerContainerWithMostWater = (fn: (height: number[]) => number) => {
   try {
     const heights = [
-      [1,8,6,2,5,4,8,3,7],
-      [1,1]
+      [1, 8, 6, 2, 5, 4, 8, 3, 7],
+      [1, 1],
     ];
-
     const answers = [49, 1];
 
     for (let i = 0; i < heights.length; i++) {
@@ -19,9 +18,9 @@ const handlerContainerWithMostWater = (fn: any) => {
       assert.strictEqual(result, answers[i]);
     }
     return true;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log("Container With Most Water handler function error");
-    throw new Error(error);
+    throw new Error((error as Error).message);
   }
 };
 
@@ -47,14 +46,14 @@ export const containerWithMostWater: Problem = {
       id: 1,
       inputText: "height = [1,8,6,2,5,4,8,3,7]",
       outputText: "49",
-      explanation: "The vertical lines at indices 1 and 8 form the container with the most water, storing 49 units of water."
+      explanation: "The vertical lines at indices 1 and 8 form the container with the most water, storing 49 units of water.",
     },
     {
       id: 2,
       inputText: "height = [1,1]",
       outputText: "1",
-      explanation: "The only possible container is formed by the two lines, storing 1 unit of water."
-    }
+      explanation: "The only possible container is formed by the two lines, storing 1 unit of water.",
+    },
   ],
   constraints: `<li class='mt-2'>
     <code>2 ≤ height.length ≤ 10<sup>5</sup></code>
@@ -65,5 +64,5 @@ export const containerWithMostWater: Problem = {
   handlerFunction: handlerContainerWithMostWater,
   starterCode: starterCodeContainerWithMostWater,
   order: 11,
-  starterFunctionName: "function maxArea("
+  starterFunctionName: "function maxArea(",
 };

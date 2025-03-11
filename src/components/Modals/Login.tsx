@@ -10,7 +10,7 @@ type LoginProps = {
 
 const Login: React.FC<LoginProps> = ({ onForgotPassword, onSignup }) => {
     const [inputs, setInputs] = useState({ email: '', password: '' });
-    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+    const [signInWithEmailAndPassword, , loading, error] = useSignInWithEmailAndPassword(auth);
     
     const router = useRouter();
 
@@ -28,13 +28,17 @@ const Login: React.FC<LoginProps> = ({ onForgotPassword, onSignup }) => {
             const loggedInUser = await signInWithEmailAndPassword(inputs.email, inputs.password);
             if (!loggedInUser) return;
             router.push('/');
-        } catch (error: any) {
-            alert(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                alert(error.message);
+            }
         }
     };
- useEffect(() => {
+
+    useEffect(() => {
         if (error) alert(error.message);
     }, [error]);
+
     return (
         <> 
             <form onSubmit={handleLogin} className="space-y-6 p-10">
@@ -82,6 +86,6 @@ const Login: React.FC<LoginProps> = ({ onForgotPassword, onSignup }) => {
             </div>
         </>
     );
-};
+};   
 
 export default Login;

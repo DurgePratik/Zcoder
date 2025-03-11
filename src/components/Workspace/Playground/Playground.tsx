@@ -62,7 +62,6 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved}
           setSuccess(true);
           setTimeout(() => setSuccess(false), 4000);
 
-          // ✅ Save the solved problem name to Firestore
           const solvedProblemRef = doc(firestore, "solvedProblems", user.uid);
           const solvedProblemDoc = await getDoc(solvedProblemRef);
 
@@ -86,11 +85,16 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved}
       } else {
         toast.error("Handler function is not defined!", { position: "top-center", autoClose: 3000, theme: "dark" });
       }
-    } catch (error: any) {
-      console.error("Execution Error:", error.message);
-      toast.error(error.message.includes("AssertionError") 
-        ? "Oops! One or more test cases failed." 
-        : error.message, { position: "top-center", autoClose: 3000, theme: "dark" });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Execution Error:", error.message);
+        toast.error(error.message.includes("AssertionError") 
+          ? "Oops! One or more test cases failed." 
+          : error.message, { position: "top-center", autoClose: 3000, theme: "dark" });
+      } else {
+        console.error("Unknown error occurred", error);
+        toast.error("An unknown error occurred.", { position: "top-center", autoClose: 3000, theme: "dark" });
+      }
     }
   };
 
@@ -123,12 +127,6 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved}
                 </div>
               </div>
             ))}
-          </div>
-          <div className="font-semibold my-4">
-            <p className="text-sm font-medium mt-4 text-white">Input:</p>
-            <div className="w-full cursor-text rounded-lg border px-3 py-[10px] bg-dark-fill-3 border-transparent text-white mt-2">{problem.examples[activeTestCaseId].inputText}</div>
-            <p className="text-sm font-medium mt-4 text-white">Output:</p>
-            <div className="w-full cursor-text rounded-lg border px-3 py-[10px] bg-dark-fill-3 border-transparent text-white mt-2">{problem.examples[activeTestCaseId].outputText}</div>
           </div>
         </div>
       </Split>

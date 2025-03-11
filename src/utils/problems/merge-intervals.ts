@@ -5,16 +5,16 @@ const starterCodeMergeIntervals = `function merge(intervals) {
   // Write your code here
 };`;
 
-const handlerMergeIntervals = (fn: any) => {
+const handlerMergeIntervals = (fn: (intervals: number[][]) => number[][]) => {
   try {
     const intervals = [
-      [[1,3],[2,6],[8,10],[15,18]],
-      [[1,4],[4,5]]
+      [[1, 3], [2, 6], [8, 10], [15, 18]],
+      [[1, 4], [4, 5]],
     ];
 
     const answers = [
-      [[1,6],[8,10],[15,18]],
-      [[1,5]]
+      [[1, 6], [8, 10], [15, 18]],
+      [[1, 5]],
     ];
 
     for (let i = 0; i < intervals.length; i++) {
@@ -22,9 +22,9 @@ const handlerMergeIntervals = (fn: any) => {
       assert.deepStrictEqual(result, answers[i]);
     }
     return true;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log("Merge Intervals handler function error");
-    throw new Error(error);
+    throw new Error((error as Error).message);
   }
 };
 

@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
 import { BsCheck2Circle } from "react-icons/bs";
 import { TiStarOutline } from "react-icons/ti";
+import Image from "next/image";
 
 type ProblemDescriptionProps = {
     problem: Problem;
@@ -17,7 +18,6 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, solved
 
     return (
         <div className="bg-white text-black">
-            {/* TAB */}
             <div className="flex h-11 w-full items-center pt-2 bg-white text-black overflow-x-hidden">
                 <div className="bg-white font-bold rounded-t-[5px] px-5 py-[10px] text-sm cursor-pointer">
                     Description
@@ -26,7 +26,6 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, solved
 
             <div className="flex px-0 py-4 h-[calc(100vh-94px)] overflow-y-auto">
                 <div className="px-5 w-full">
-                    {/* Problem heading */}
                     <div className="w-full">
                         <div className="flex space-x-4">
                             <div className="flex-1 mr-2 text-lg font-medium">{problem.title}</div>
@@ -37,35 +36,35 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, solved
                                     {currentProblem.difficulty}
                                 </div>
                                 {solved && (
-                                    <div className="rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-green-600">
+                                    <div className="rounded p-[3px] ml-4 text-lg text-green-600">
                                         <BsCheck2Circle />
                                     </div>
                                 )}
-                                <div className="flex items-center cursor-pointer hover:bg-gray-300 space-x-1 rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-gray-700">
+                                <div className="flex items-center cursor-pointer hover:bg-gray-300 space-x-1 rounded p-[3px] ml-4 text-lg text-gray-700">
                                     <AiFillLike />
                                     <span className="text-xs">120</span>
                                 </div>
-                                <div className="flex items-center cursor-pointer hover:bg-gray-300 space-x-1 rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-gray-700">
+                                <div className="flex items-center cursor-pointer hover:bg-gray-300 space-x-1 rounded p-[3px] ml-4 text-lg text-gray-700">
                                     <AiFillDislike />
                                     <span className="text-xs">2</span>
                                 </div>
-                                <div className="cursor-pointer hover:bg-gray-300 rounded p-[3px] ml-4 text-xl transition-colors duration-200 text-gray-700">
+                                <div className="cursor-pointer hover:bg-gray-300 rounded p-[3px] ml-4 text-xl text-gray-700">
                                     <TiStarOutline />
                                 </div>
                             </div>
                         )}
 
-                        {/* Problem Statement */}
                         <div className="text-black text-sm">
                             <div dangerouslySetInnerHTML={{ __html: problem.problemStatement }} />
                         </div>
 
-                        {/* Examples */}
                         <div className="mt-4">
                             {problem.examples.map((example, index) => (
                                 <div key={example.id}>
                                     <p className="font-medium text-black">Example {index + 1}:</p>
-                                    {example.img && <img src={example.img} alt="" className="mt-3" />}
+                                    {example.img && (
+                                        <Image src={example.img} alt="Example" width={500} height={300} className="mt-3" />
+                                    )}
                                     <div className="bg-gray-100 p-3 rounded-md mt-2">
                                         <pre>
                                             <strong>Input:</strong> {example.inputText}
@@ -83,7 +82,6 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, solved
                             ))}
                         </div>
 
-                        {/* Constraints */}
                         <div className="my-5">
                             <div className="text-black text-sm font-medium">Constraints:</div>
                             <ul className="text-black ml-5 list-disc my-4">
@@ -132,31 +130,4 @@ function useGetCurrentProblem(problemId: string) {
     }, [problemId]);
 
     return { currentProblem, loading, problemDifficultyClass };
-}
-
-function useGetUsersDataOnProblem(problemId: string) {
-    const [data, setData] = useState({ solved: false });
-    const [user] = useAuthState(auth);
-
-    useEffect(() => {
-        const getUsersDataOnProblem = async () => {
-            if (!user) return;
-
-            try {
-                const userRef = doc(firestore, "users", user.uid);
-                const userSnap = await getDoc(userRef);
-
-                if (userSnap.exists()) {
-                    const { solvedProblems } = userSnap.data();
-                    setData({ solved: solvedProblems.includes(problemId) });
-                }
-            } catch (error) {
-                console.error("Error fetching user data on problem:", error);
-            }
-        };
-
-        getUsersDataOnProblem();
-    }, [problemId, user]);
-
-    return data;
 }

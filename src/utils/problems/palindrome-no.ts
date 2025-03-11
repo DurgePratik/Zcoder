@@ -5,7 +5,7 @@ const starterCodePalindromeNumber = `function isPalindrome(x) {
   // Write your code here
 };`;
 
-const handlerPalindromeNumber = (fn: any) => {
+const handlerPalindromeNumber = (fn: (x: number) => boolean) => {
   try {
     const numbers = [121, -121, 10, 0];
     const answers = [true, false, false, true];
@@ -15,9 +15,9 @@ const handlerPalindromeNumber = (fn: any) => {
       assert.strictEqual(result, answers[i]);
     }
     return true;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log("Palindrome Number handler function error");
-    throw new Error(error);
+    throw new Error((error as Error).message);
   }
 };
 
