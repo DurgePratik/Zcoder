@@ -41,14 +41,14 @@ export const jumpGame: Problem = {
 	examples: [
 		{
 			id: 0,
-			inputText: `nums = [2,3,1,1,4]`,
-			outputText: `true`,
+			input: `nums = [2,3,1,1,4]`,
+			output: `true`,
 			explanation: "Jump 1 step from index 0 to 1, then 3 steps to the last index.",
 		},
 		{
 			id: 1,
-			inputText: `nums = [3,2,1,0,4]`,
-			outputText: `false`,
+			input: `nums = [3,2,1,0,4]`,
+			output: `false`,
 			explanation: "You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.",
 		},
 	],

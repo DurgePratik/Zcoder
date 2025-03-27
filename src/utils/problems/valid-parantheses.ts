@@ -30,10 +30,10 @@ export const validParentheses: Problem = {
     <li class="mt-3">Every close bracket has a corresponding open bracket of the same type.</li>
   </ul>`,
 	examples: [
-		{ id: 0, inputText: 's = "()"', outputText: "true" },
-		{ id: 1, inputText: 's = "()[]{}"', outputText: "true" },
-		{ id: 2, inputText: 's = "(]"', outputText: "false" },
-		{ id: 3, inputText: 's = "([)]"', outputText: "false" },
+		{ id: 0, input: 's = "()"', output: "true" },
+		{ id: 1, input: 's = "()[]{}"', output: "true" },
+		{ id: 2, input: 's = "(]"', output: "false" },
+		{ id: 3, input: 's = "([)]"', output: "false" },
 	],
 	constraints: `<li class='mt-2'><code>1 <= s.length <= 10<sup>4</sup></code></li>
   <li class='mt-2 '><code>s</code> consists of parentheses only <code class="text-md">'()[]{}'</code>.</li>`,

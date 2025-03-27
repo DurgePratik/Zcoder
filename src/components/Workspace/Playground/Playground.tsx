@@ -12,6 +12,7 @@ import { problems } from "@/mockproblems/problems";
 import { toast, ToastContainer } from "react-toastify";
 import { doc, setDoc, arrayUnion, updateDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css"; 
+import type { Problem } from "@/utils/types/problems";
 
 interface Example {
   id: number;
@@ -22,29 +23,24 @@ interface Example {
 }
 
 type PlaygroundProps = {
-  problem: {
-    title : string;
-    name: string;
-    starterFunctionName: string;
-    examples: Example[];
-    starterCode: string;
-  };
+  problem: Problem;
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>;
   setSolved: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved}) => {
+const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved }) => {
   const [activeTestCaseId, setActiveTestCaseId] = useState<number>(0);
   const [userCode, setUserCode] = useState<string>(problem.starterCode);
   const [user] = useAuthState(auth);
-  const { query: { pid } } = useRouter();
+  const { query } = useRouter();
+  const pid = query.pid as string;
 
   const handleSubmit = async () => {
     if (!user) {
       toast.error("Please login to submit your code", { position: "top-center", autoClose: 3000, theme: "dark" });
       return;
     }
-    
+
     try {
       if (!problem.starterFunctionName || !userCode.includes(problem.starterFunctionName)) {
         toast.error("Invalid function definition in your code!", { position: "top-center", autoClose: 3000, theme: "dark" });
@@ -53,7 +49,7 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved}
 
       const extractedCode = userCode.slice(userCode.indexOf(problem.starterFunctionName));
       const cb = new Function(`"use strict"; return ${extractedCode}`)();
-      const handler = problems[pid as string]?.handlerFunction;
+      const handler = problems?.[pid]?.handlerFunction;
 
       if (typeof handler === "function") {
         const success = handler(cb);
@@ -85,7 +81,7 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved}
       } else {
         toast.error("Handler function is not defined!", { position: "top-center", autoClose: 3000, theme: "dark" });
       }
-    } catch (error: unknown) {
+    } catch (error) {
       if (error instanceof Error) {
         console.error("Execution Error:", error.message);
         toast.error(error.message.includes("AssertionError") 
@@ -99,6 +95,7 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved}
   };
 
   useEffect(() => {
+    if (!pid) return;
     const code = localStorage.getItem(`code-${pid}`);
     setUserCode(user ? (code ? JSON.parse(code) : problem.starterCode) : problem.starterCode);
   }, [pid, user, problem.starterCode]);

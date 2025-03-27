@@ -2,18 +2,19 @@ import { auth, firestore } from "@/firebase/firebase";
 import type { DBProblem, Problem } from "@/utils/types/problems";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
 import { BsCheck2Circle } from "react-icons/bs";
 import { TiStarOutline } from "react-icons/ti";
 import Image from "next/image";
 
 type ProblemDescriptionProps = {
-    problem: Problem;
+    problem?: Problem;
     solved: boolean;
 };
 
 const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, solved }) => {
+    if (!problem) return <div className="text-center py-4">Loading problem...</div>;
+    
     const { currentProblem, loading, problemDifficultyClass } = useGetCurrentProblem(problem.id);
 
     return (
@@ -23,7 +24,6 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, solved
                     Description
                 </div>
             </div>
-
             <div className="flex px-0 py-4 h-[calc(100vh-94px)] overflow-y-auto">
                 <div className="px-5 w-full">
                     <div className="w-full">
@@ -53,13 +53,11 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, solved
                                 </div>
                             </div>
                         )}
-
                         <div className="text-black text-sm">
                             <div dangerouslySetInnerHTML={{ __html: problem.problemStatement }} />
                         </div>
-
                         <div className="mt-4">
-                            {problem.examples.map((example, index) => (
+                            {problem.examples?.map((example, index) => (
                                 <div key={example.id}>
                                     <p className="font-medium text-black">Example {index + 1}:</p>
                                     {example.img && (
@@ -67,9 +65,9 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, solved
                                     )}
                                     <div className="bg-gray-100 p-3 rounded-md mt-2">
                                         <pre>
-                                            <strong>Input:</strong> {example.inputText}
+                                            <strong>Input:</strong> {example.input}
                                             <br />
-                                            <strong>Output:</strong> {example.outputText}
+                                            <strong>Output:</strong> {example.output}
                                             <br />
                                             {example.explanation && (
                                                 <>
@@ -81,7 +79,6 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, solved
                                 </div>
                             ))}
                         </div>
-
                         <div className="my-5">
                             <div className="text-black text-sm font-medium">Constraints:</div>
                             <ul className="text-black ml-5 list-disc my-4">
@@ -97,26 +94,24 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, solved
 
 export default ProblemDescription;
 
-function useGetCurrentProblem(problemId: string) {
+function useGetCurrentProblem(problemId?: string) {
     const [currentProblem, setCurrentProblem] = useState<DBProblem | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [problemDifficultyClass, setProblemDifficultyClass] = useState<string>("");
 
     useEffect(() => {
+        if (!problemId) return;
         const fetchProblem = async () => {
             try {
                 const docRef = doc(firestore, "problems", problemId);
                 const docSnap = await getDoc(docRef);
-
                 if (docSnap.exists()) {
                     const problem = docSnap.data() as DBProblem;
                     setCurrentProblem(problem);
                     setProblemDifficultyClass(
-                        problem.difficulty === "Easy"
-                            ? "bg-olive text-black"
-                            : problem.difficulty === "Medium"
-                            ? "bg-dark-yellow text-black"
-                            : "bg-dark-pink text-black"
+                        problem.difficulty === "Easy" ? "bg-olive text-black" :
+                        problem.difficulty === "Medium" ? "bg-dark-yellow text-black" :
+                        "bg-dark-pink text-black"
                     );
                 }
             } catch (error) {
@@ -125,7 +120,6 @@ function useGetCurrentProblem(problemId: string) {
                 setLoading(false);
             }
         };
-
         fetchProblem();
     }, [problemId]);
 

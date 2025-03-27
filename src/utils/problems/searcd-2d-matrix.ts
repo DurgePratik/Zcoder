@@ -52,28 +52,28 @@ export const search2DMatrix: Problem = {
 	examples: [
 		{
 			id: 0,
-			inputText: `matrix = [
+			input: `matrix = [
   [1,3,5,7],
   [10,11,16,20],
   [23,30,34,60]
 ], target = 3`,
-			outputText: `true`,
+			output: `true`,
 			img: example1.src,
 		},
 		{
 			id: 1,
-			inputText: `matrix = [
+			input: `matrix = [
   [1,3,5,7],
   [10,11,16,20],
   [23,30,34,60]
 ], target = 13`,
-			outputText: `false`,
+			output: `false`,
 			img: example2.src,
 		},
 		{
 			id: 2,
-			inputText: `matrix = [[1]], target = 1`,
-			outputText: `true`,
+			input: `matrix = [[1]], target = 1`,
+			output: `true`,
 		},
 	],
 	constraints: `

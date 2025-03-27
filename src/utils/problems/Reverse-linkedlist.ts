@@ -85,26 +85,26 @@ export const reverseLinkedList: Problem = {
 	examples: [
 		{
 			id: 0,
-			inputText: "head = [1,2,3,4,5]",
-			outputText: "[5,4,3,2,1]",
+			input: "head = [1,2,3,4,5]",  // FIXED: Changed inputText → input
+			output: "[5,4,3,2,1]",        // FIXED: Changed outputText → output
 			img: example.src,
 		},
 		{
 			id: 1,
-			inputText: "head = [1,2,3]",
-			outputText: "[3,2,1]",
+			input: "head = [1,2,3]",
+			output: "[3,2,1]",
 		},
 		{
 			id: 2,
-			inputText: "head = [1]",
-			outputText: "[1]",
+			input: "head = [1]",
+			output: "[1]",
 		},
 	],
 	constraints: `<li class='mt-2'>The number of nodes in the list is the range <code>[0, 5000]</code>.</li>
 <li class='mt-2'><code>-5000 <= Node.val <= 5000</code></li>`,
 	starterCode: starterCodeReverseLinkedListJS,
 	handlerFunction: reverseLinkedListHandler,
-	starterFunctionName: "function reverseLinkedList(",
+	starterFunctionName: "reverseLinkedList",  // FIXED: Removed "function" in name
 	order: 2,
-	name: ""
+	name: "Reverse Linked List",
 };

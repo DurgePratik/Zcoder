@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import Split from 'react-split';
-
 import ProblemDescription from './ProblemDescription/ProblemDescription';
 import Playground from './Playground/Playground';
-import type { Problem, Example } from '@/utils/types/problems';
+import type { Problem } from '@/utils/types/problems';
 import Confetti from "react-confetti";
 import useWindowSize from '@/hooks/useWindowSize';
 
 type WorkspaceProps = {
-    problem: Problem
+    problem: Problem;
 };
 
 const Workspace: React.FC<WorkspaceProps> = ({ problem }) => {
@@ -25,6 +24,6 @@ const Workspace: React.FC<WorkspaceProps> = ({ problem }) => {
             </div>
         </Split>
     );
-}
+};
 
 export default Workspace;

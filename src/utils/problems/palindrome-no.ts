@@ -36,20 +36,20 @@ export const palindromeNumber: Problem = {
   examples: [
     {
       id: 1,
-      inputText: "x = 121",
-      outputText: "true",
+      input: "x = 121",
+      output: "true",
       explanation: "121 reads as 121 from left to right and right to left."
     },
     {
       id: 2,
-      inputText: "x = -121",
-      outputText: "false",
+      input: "x = -121",
+      output: "false",
       explanation: "From left to right, it reads -121. From right to left, it becomes 121-. Therefore, it is not a palindrome."
     },
     {
       id: 3,
-      inputText: "x = 10",
-      outputText: "false",
+      input: "x = 10",
+      output: "false",
       explanation: "Reads as 01 from right to left. Therefore, it is not a palindrome."
     }
   ],
