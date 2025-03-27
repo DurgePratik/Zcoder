@@ -51,7 +51,8 @@ export const problems: Record<string, Problem> = {
             }
         }
 
-        function areListsEqual(l1: { val: any; next: any; } | null, l2) {
+        function areListsEqual(l1: { val: any; next: any } | null,
+			l2: { val: any; next: any } | null) {
             while (l1 && l2) {
                 if (l1.val !== l2.val) return false;
                 l1 = l1.next;
