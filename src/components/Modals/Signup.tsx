@@ -1,20 +1,17 @@
 import { auth, firestore } from '@/firebase/firebase';
 import { setDoc, doc } from 'firebase/firestore';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface SignupProps {
-    onLogin: () => void;
+    onLogin: () => void; // Function to close the modal
 }
 
 const Signup: React.FC<SignupProps> = ({ onLogin }) => {
     const [inputs, setInputs] = useState({ email: '', displayName: '', password: '' });
-    const [createUserWithEmailAndPassword, , loading, error] = useCreateUserWithEmailAndPassword(auth);
-    const router = useRouter();
+    const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
 
     const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -26,9 +23,13 @@ const Signup: React.FC<SignupProps> = ({ onLogin }) => {
             toast.error("Please fill in all fields!");
             return;
         }
+
         try {
             const newUser = await createUserWithEmailAndPassword(inputs.email, inputs.password);
-            if (!newUser) return;
+            if (!newUser || !newUser.user) {
+                toast.error("Account creation failed!");
+                return;
+            }
 
             const userData = {
                 uid: newUser.user.uid,
@@ -39,10 +40,16 @@ const Signup: React.FC<SignupProps> = ({ onLogin }) => {
                 solvedProblems: []
             };
 
+            if (!firestore) {
+                console.error("Firestore is not initialized!");
+                toast.error("Database error! Please try again.");
+                return;
+            }
+
             await setDoc(doc(firestore, "users", newUser.user.uid), userData);
 
             toast.success("Registration successful!", {
-                onClose: () => router.push('/')
+                onClose: () => onLogin() // Close modal after success
             });
 
         } catch (err) {
@@ -91,15 +98,13 @@ const Signup: React.FC<SignupProps> = ({ onLogin }) => {
                     className="border-2 outline-none sm:text-sm rounded-lg border-gray-500 placeholder-gray-400 h-10 w-full"
                 />
 
-                <Link href='/'>
-                    <button
-                        type="submit"
-                        className="border-2 outline-none sm:text-sm rounded-lg bg-[#131538] text-white h-10 w-full mt-6"
-                        disabled={loading}
-                    >
-                        {loading ? "Registering..." : "Register"}
-                    </button>
-                </Link>
+                <button
+                    type="submit"
+                    className="border-2 outline-none sm:text-sm rounded-lg bg-[#131538] text-white h-10 w-full mt-6"
+                    disabled={loading}
+                >
+                    {loading ? "Registering..." : "Register"}
+                </button>
             </form>
 
             <p className="mt-4 text-center">

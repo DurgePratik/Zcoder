@@ -6,12 +6,13 @@ export type Example = {
 	img?: string;
 };
 
-// local problem data
+// Local problem data
 export type Problem = {
 	id: string;
+	name: string;
 	title: string;
 	problemStatement: string;
-	examples: Example[];
+	examples: Example[];  // Ensure this matches everywhere
 	constraints: string;
 	order: number;
 	starterCode: string;
@@ -20,9 +21,9 @@ export type Problem = {
 };
 
 export type DBProblem = {
-	constraints: string | TrustedHTML;
-	examples: any;
-	problemStatement: string | TrustedHTML;
+	constraints: string;
+	examples: Example[];  // Changed from 'any' to 'Example[]'
+	problemStatement: string;
 	id: string;
 	title: string;
 	category: string;

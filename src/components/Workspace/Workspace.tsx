@@ -3,7 +3,7 @@ import Split from 'react-split';
 
 import ProblemDescription from './ProblemDescription/ProblemDescription';
 import Playground from './Playground/Playground';
-import type { Problem } from '@/utils/types/problems';
+import type { Problem, Example } from '@/utils/types/problems';
 import Confetti from "react-confetti";
 import useWindowSize from '@/hooks/useWindowSize';
 

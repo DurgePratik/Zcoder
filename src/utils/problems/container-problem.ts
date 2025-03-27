@@ -65,4 +65,5 @@ export const containerWithMostWater: Problem = {
   starterCode: starterCodeContainerWithMostWater,
   order: 11,
   starterFunctionName: "function maxArea(",
+  name: ""
 };

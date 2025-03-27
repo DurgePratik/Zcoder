@@ -59,5 +59,6 @@ export const palindromeNumber: Problem = {
   handlerFunction: handlerPalindromeNumber,
   starterCode: starterCodePalindromeNumber,
   order: 9,
-  starterFunctionName: "function isPalindrome("
+  starterFunctionName: "function isPalindrome(",
+  name: ""
 };

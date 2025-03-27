@@ -61,5 +61,6 @@ export const mergeIntervals: Problem = {
   handlerFunction: handlerMergeIntervals,
   starterCode: starterCodeMergeIntervals,
   order: 56,
-  starterFunctionName: "function merge("
+  starterFunctionName: "function merge(",
+  name: ""
 };
