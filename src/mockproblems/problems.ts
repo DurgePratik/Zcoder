@@ -43,16 +43,17 @@ export const problems: Record<string, Problem> = {
     videoId: "",
     handlerFunction: (cb) => {
         class ListNode {
-			next: null;
 			val: number;
-            constructor(val: number, next = null) {
-                this.val = val;
-                this.next = next;
-            }
-        }
+			next: ListNode | null;
+			constructor(val?: number, next?: ListNode | null) {
+				this.val = val ?? 0;
+				this.next = next ?? null;
+			}
+		}
+		
 
         function areListsEqual(l1: { val: any; next: any } | null,
-			l2: { val: any; next: any } | null) {
+  l2: { val: any; next: any } | null) {
             while (l1 && l2) {
                 if (l1.val !== l2.val) return false;
                 l1 = l1.next;
