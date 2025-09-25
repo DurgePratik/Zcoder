@@ -82,8 +82,8 @@ Zcoder is a full-stack web platform that allows users to solve coding problems o
 
 ## Project Structure
 
-/components # React components (Editor, ProblemCard, Navbar)
-/pages # Next.js pages (home, problems, dashboard)
-/utils # Helper functions (sandbox execution, test case validation)
-/firebase # Firebase configuration and services
-/styles # Tailwind CSS customizations
+- /components   # React components (Editor, ProblemCard, Navbar)
+- /pages        # Next.js pages (home, problems, dashboard)
+- /utils        # Helper functions (sandbox execution, test case validation)
+- /firebase     # Firebase configuration and services
+- /styles       # Tailwind CSS customizations
