@@ -64,3 +64,38 @@ Zcoder is a full-stack web platform that allows users to solve coding problems o
 
 ## Architecture
 
+
+- **Frontend:** Built with **React** and **Next.js** for routing, UI rendering, and server-side rendering.  
+- **Authentication:** Managed by **Firebase Authentication** with Recoil state management and Firestore rules for secure access.  
+- **Database:** **Firestore** stores problem data, user submissions, and progress tracking.  
+- **Code Editor:** **Monaco Editor** embedded in React for in-browser code editing with syntax highlighting and persistence.  
+- **Code Execution:** Custom **sandbox environment** executes submitted code safely and validates against test cases.  
+- **Feedback:** Execution results (Accepted/Rejected/Error) displayed in real-time to the user.  
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Node.js >= 18  
+- npm or yarn  
+- Firebase account  
+
+### Steps
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/DurgePratik/Zcoder.git
+cd Zcoder
+
+## Project Structure
+/components      # React components (Editor, ProblemCard, Navbar)
+/pages           # Next.js pages (home, problems, dashboard)
+/utils           # Helper functions (sandbox execution, test case validation)
+/firebase        # Firebase configuration and services
+/styles          # Tailwind CSS customizations
+/screenshots     # Screenshots for README
+
+
