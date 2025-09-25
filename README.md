@@ -9,13 +9,9 @@ Zcoder is a full-stack web platform that allows users to solve coding problems o
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
-- [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
-- [Future Enhancements](#future-enhancements)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
+ 
 
 ---
 
@@ -58,44 +54,36 @@ Zcoder is a full-stack web platform that allows users to solve coding problems o
 | Database | Firebase Firestore |
 | Code Editor | Monaco Editor |
 | Code Execution | Custom sandboxing technique |
-| Deployment | Vercel / Firebase Hosting |
 
 ---
 
 ## Architecture
 
 
-- **Frontend:** Built with **React** and **Next.js** for routing, UI rendering, and server-side rendering.  
-- **Authentication:** Managed by **Firebase Authentication** with Recoil state management and Firestore rules for secure access.  
-- **Database:** **Firestore** stores problem data, user submissions, and progress tracking.  
-- **Code Editor:** **Monaco Editor** embedded in React for in-browser code editing with syntax highlighting and persistence.  
-- **Code Execution:** Custom **sandbox environment** executes submitted code safely and validates against test cases.  
-- **Feedback:** Execution results (Accepted/Rejected/Error) displayed in real-time to the user.  
+- **Frontend:** React + Next.js for routing, UI rendering, and server-side rendering.  
+- **Authentication:** Firebase Authentication with Recoil state management and secure Firestore rules.  
+- **Database:** Firestore stores problems, user submissions, and progress tracking.  
+- **Code Editor:** Monaco Editor embedded in React for in-browser code editing with syntax highlighting and persistence.  
+- **Code Execution:** Custom sandbox environment executes submitted code safely and validates against test cases.  
+- **Feedback:** Results (Accepted/Rejected/Error) displayed in real-time to the user.  
 
 ---
 
-## Installation
+## Usage
 
-### Prerequisites
+1. Sign up or log in using Firebase Authentication.  
+2. Browse the curated problem set and select a problem.  
+3. Write your solution in the **Monaco-based code editor**.  
+4. Click **Run** to test your code or **Submit** to validate it against all test cases in the sandbox.  
+5. View real-time execution results (Accepted/Rejected/Error).  
+6. Track solved problems and submission history on your dashboard.
 
-- Node.js >= 18  
-- npm or yarn  
-- Firebase account  
-
-### Steps
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/DurgePratik/Zcoder.git
-cd Zcoder
+---
 
 ## Project Structure
-/components      # React components (Editor, ProblemCard, Navbar)
-/pages           # Next.js pages (home, problems, dashboard)
-/utils           # Helper functions (sandbox execution, test case validation)
-/firebase        # Firebase configuration and services
-/styles          # Tailwind CSS customizations
-/screenshots     # Screenshots for README
 
-
+/components # React components (Editor, ProblemCard, Navbar)
+/pages # Next.js pages (home, problems, dashboard)
+/utils # Helper functions (sandbox execution, test case validation)
+/firebase # Firebase configuration and services
+/styles # Tailwind CSS customizations
