@@ -9,7 +9,6 @@ Zcoder is a full-stack web platform that allows users to solve coding problems o
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
-- [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
